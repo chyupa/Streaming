@@ -63,4 +63,5 @@ class User extends Model implements AuthenticatableContract,
     {
         return $this->hasMany("App\StudioVideo", "_user_id", "_id");
     }
+
 }
