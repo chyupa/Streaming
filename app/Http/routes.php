@@ -24,8 +24,19 @@ Route::group(['prefix' => 'auth'], function(){
     Route::get('login', ['as' => 'auth.get.login', 'uses' => 'Auth\AuthController@getLogin']);
     Route::post('login', ['as' => 'auth.post.login', 'uses' => 'Auth\AuthController@postLogin']);
 
-    Route::get('register', ['as' => 'auth.get.register', 'uses' => 'Auth\AuthController@getRegister']);
-    Route::post('register', ['as' => 'auth.post.register', 'uses' => 'Auth\AuthController@postRegister']);
+    Route::get('studio/register', ['as' => 'auth.get.studio.register', 'uses' => 'Auth\AuthController@getStudioRegister']);
+    Route::post('studio/register', ['as' => 'auth.post.studio.register', 'uses' => 'Auth\AuthController@postStudioRegister']);
+
+    Route::get('user/register', ['as' => 'auth.get.user.register', 'uses' => 'Auth\AuthController@getUserRegister']);
+    Route::post('user/register', ['as' => 'auth.post.user.register', 'uses' => 'Auth\AuthController@postUserRegister']);
 
     Route::get('logout', ['as' => 'auth.get.logout', 'uses' => 'Auth\AuthController@getLogout']);
+});
+
+Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Dashboard'], function(){
+    Route::get('/', ['as' => 'get.admin.dashboard', 'uses' => 'AdminController@showDashboard']);
+
+    Route::get('users', ['as' => 'admin.show.users', 'uses' => 'AdminController@showUsers']);
+    Route::get('studios', ['as' => 'admin.show.studios', 'uses' => 'AdminController@showStudios']);
+    Route::get('categories', ['as' => 'admin.show.categories', 'uses' => 'AdminController@showCategories']);
 });

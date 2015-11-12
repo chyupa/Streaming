@@ -1,17 +1,21 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Login Streaming</title>
-</head>
-<body>
-    <form method="post" action="{{route('auth.post.login')}}">
-        <input type="email" name="email" placeholder="Enter Email" />
-        <br>
-        <input type="password" name="password" placeholder="Enter Password" />
-        <br>
-        <input type="hidden" name="_token" value="{{csrf_token()}}"/>
-        <button type="submit">Log in</button>
-    </form>
-</body>
-</html>
+@extends('master.master')
+@section('section-title', 'User Login')
+@section('content')
+    <div class="col-sm-4">
+        @include('errors.form')
+        <form method="post" action="{{route('auth.post.login')}}" class="form" role="form">
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" name="email">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" name="password" class="form-control">
+            </div>
+            <div class="form-group">
+                <input type="hidden" name="_token" value="{{csrf_token()}}"/>
+                <button type="submit" class="btn btn-primary">Log in</button>
+            </div>
+        </form>
+    </div>
+@stop

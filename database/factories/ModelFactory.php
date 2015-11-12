@@ -13,9 +13,15 @@
 
 $factory->define(App\User::class, function (Faker\Generator $faker) {
     return [
-        'name' => $faker->name,
         'email' => $faker->email,
-        'password' => bcrypt(str_random(10)),
-        'remember_token' => str_random(10),
+        'password' => bcrypt('parola'),
+        'role_id' => mt_rand(2, 3)
+    ];
+});
+
+$factory->define(App\VideoCategory::class, function(Faker\Generator $faker){
+    return [
+        'name' => $faker->name,
+        'slug' => $faker->slug,
     ];
 });

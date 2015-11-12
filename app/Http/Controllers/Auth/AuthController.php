@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use Illuminate\Support\Facades\Auth;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
@@ -36,6 +38,23 @@ class AuthController extends Controller
     }
 
     /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function getUserRegister()
+    {
+        return view('auth.user-register');
+    }
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function getStudioRegister()
+    {
+        return view('auth.studio-register');
+    }
+
+
+    /**
      * Get a validator for an incoming registration request.
      *
      * @param  array  $data
@@ -44,7 +63,7 @@ class AuthController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => 'required|max:255',
+//            'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|confirmed|min:6',
         ]);
@@ -56,12 +75,79 @@ class AuthController extends Controller
      * @param  array  $data
      * @return User
      */
-    protected function create(array $data)
+    protected function createUser(array $data)
+    {
+        $user = new User;
+        $user->email = $data['email'];
+        $user->password = bcrypt($data['password']);
+        $user->role_id = 2;
+        $user->save();
+        return $user;
+    }
+
+    /**
+     * @param array $data
+     * @return User
+     */
+    protected function createStudioUser( array $data )
     {
         return User::create([
-            'name' => $data['name'],
+//            'name' => $data['name'],
             'email' => $data['email'],
-            'password' => bcrypt($data['password']),
+            'role_id' => 3,
+            'password' => bcrypt($data['password'])
         ]);
     }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function postUserRegister(Request $request)
+    {
+        $validator = $this->validator($request->all());
+
+        if ($validator->fails()) {
+            $this->throwValidationException(
+                $request, $validator
+            );
+        }
+
+        Auth::login($this->createUser($request->all()));
+
+        return redirect()->route('get.user.dashboard');
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function postStudioRegister(Request $request)
+    {
+        $validator = $this->validator($request->all());
+
+        if ($validator->fails()) {
+            $this->throwValidationException(
+                $request, $validator
+            );
+        }
+
+        Auth::login($this->createStudioUser($request->all()));
+
+        return redirect()->route('get.studio.dashboard');
+    }
+
+
+    public function redirectPath()
+    {
+        if(Auth::user()->is("admin"))
+            return route("get.admin.dashboard");
+        elseif(Auth::user()->is("studio"))
+            return route("get.studio.dashboard");
+        elseif(Auth::user()->is("user"))
+            return route("get.user.dashboard");
+        else
+            abort(404);
+    }
+
 }

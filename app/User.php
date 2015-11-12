@@ -41,7 +41,7 @@ class User extends Model implements AuthenticatableContract,
 
     public function role()
     {
-        return $this->hasOne("App\Role", "_id");
+        return $this->hasOne("App\Role", "_id", 'role_id');
     }
 
     public function userMetadata()
