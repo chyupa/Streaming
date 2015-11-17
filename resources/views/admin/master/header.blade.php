@@ -7,5 +7,6 @@
 </head>
 <body>
 <div class="container">
+    @include('admin.master.nav')
     <div class="row">
         <h1 class="text-center">@yield('section-title')</h1>

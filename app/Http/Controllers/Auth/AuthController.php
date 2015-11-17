@@ -141,7 +141,7 @@ class AuthController extends Controller
     public function redirectPath()
     {
         if(Auth::user()->is("admin"))
-            return route("get.admin.dashboard");
+            return route("admin.show.dashboard");
         elseif(Auth::user()->is("studio"))
             return route("get.studio.dashboard");
         elseif(Auth::user()->is("user"))

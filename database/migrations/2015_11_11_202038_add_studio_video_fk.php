@@ -13,7 +13,7 @@ class AddStudioVideoFk extends Migration
     public function up()
     {
         Schema::table("studio_videos", function(Blueprint $table){
-           $table->foreign("_user_id")->references("_id")->on("users")->onDelete("cascade");
+//           $table->foreign("_user_id")->references("_id")->on("users")->onDelete("cascade");
         });
     }
 
@@ -25,7 +25,7 @@ class AddStudioVideoFk extends Migration
     public function down()
     {
         Schema::table("studio_videos", function(Blueprint $table){
-            $table->dropForeign("studio_videos__user_id_foreign");
+//            $table->dropForeign("studio_videos__user_id_foreign");
         });
     }
 }

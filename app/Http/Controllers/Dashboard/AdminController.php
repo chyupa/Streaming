@@ -33,7 +33,7 @@ class AdminController extends Controller
     public function showUsers()
     {
         $role = Role::find(2);
-        $users = User::where('role_id', $role->_id)->get();
+        $users = User::where('role_id', $role->_id)->paginate(20);
         return view('admin.user.all', compact('users'));
     }
 
@@ -43,13 +43,13 @@ class AdminController extends Controller
     public function showStudios()
     {
         $role = Role::find(3);
-        $studios = User::where('role_id', $role->_id)->get();
+        $studios = User::where('role_id', $role->_id)->paginate(20);
         return view('admin.studio.all', compact('studios'));
     }
 
     public function showCategories()
     {
-        $categories = VideoCategory::all();
+        $categories = VideoCategory::paginate(20);
         return view('admin.category.all', compact('categories'));
     }
 }

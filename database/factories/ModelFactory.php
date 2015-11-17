@@ -25,3 +25,15 @@ $factory->define(App\VideoCategory::class, function(Faker\Generator $faker){
         'slug' => $faker->slug,
     ];
 });
+
+$factory->define(App\StudioVideo::class, function (Faker\Generator $faker){
+   return[
+       '_user_id' => mt_rand( 1, 44 ),
+       'name' => $faker->streetName,
+       'price' => $faker->randomNumber(3),
+       'duration'=>$faker->time(),
+//       'path' => $faker->,
+       'url' => $faker->url,
+       'type' => $faker->mimeType
+   ];
+});

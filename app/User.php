@@ -46,7 +46,7 @@ class User extends Model implements AuthenticatableContract,
 
     public function userMetadata()
     {
-        return $this->hasOne("App\UserMetadata", "_id");
+        return $this->hasOne("App\UserMetadata", "_user_id");
     }
 
     public function studioMetadata()

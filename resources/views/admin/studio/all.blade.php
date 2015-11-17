@@ -18,13 +18,16 @@
                         <td>{{$studio->email}}</td>
                         <td>{{$studio->created_at}}</td>
                         <td>
-                            <a href="#">Edit</a>
+                            <a href="{{route('admin.get.studio.edit', $studio->_id)}}">Edit</a>
                             <a href="#">Delete</a>
                         </td>
                     </tr>
                 @endforeach
                 </tbody>
             </table>
+            <div class="text-center">
+                {!! $studios->render() !!}
+            </div>
         @else
             <h3>No Studios found!</h3>
         @endif

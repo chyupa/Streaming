@@ -18,13 +18,16 @@
                             <td>{{$user->email}}</td>
                             <td>{{$user->created_at}}</td>
                             <td>
-                                <a href="#">Edit</a>
+                                <a href="{{route('admin.get.user.edit', $user->_id)}}">Edit</a>
                                 <a href="#">Delete</a>
                             </td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
+            <div class="text-center">
+                {!! $users->render() !!}
+            </div>
         @else
             <h3>No users found!</h3>
         @endif

@@ -16,7 +16,7 @@ class CreateStudioMetadataTable extends Migration
             $table->increments("_id");
             $table->integer("_user_id")->unsigned();
             $table->string("name");
-            $table->string("slug")->unique();
+            $table->string("slug");
             $table->string("address");
             $table->string("phone");
             $table->string("contact_email")->unique();

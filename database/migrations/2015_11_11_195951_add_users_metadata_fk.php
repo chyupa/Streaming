@@ -13,7 +13,7 @@ class AddUsersMetadataFk extends Migration
     public function up()
     {
         Schema::table("users_metadata", function(Blueprint $table){
-           $table->foreign("_user_id")->references("_id")->on("users")->onDelete('cascade');
+//           $table->foreign("_user_id")->references("_id")->on("users")->onDelete('cascade');
         });
     }
 
@@ -25,7 +25,7 @@ class AddUsersMetadataFk extends Migration
     public function down()
     {
         Schema::table("users_metadata", function(Blueprint $table){
-           $table->dropForeign("users_metadata__user_id_foreign");
+//           $table->dropForeign("users_metadata__user_id_foreign");
         });
     }
 }

@@ -34,9 +34,26 @@ Route::group(['prefix' => 'auth'], function(){
 });
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Dashboard'], function(){
-    Route::get('/', ['as' => 'get.admin.dashboard', 'uses' => 'AdminController@showDashboard']);
+    Route::get('/', ['as' => 'admin.show.dashboard', 'uses' => 'AdminController@showDashboard']);
 
     Route::get('users', ['as' => 'admin.show.users', 'uses' => 'AdminController@showUsers']);
     Route::get('studios', ['as' => 'admin.show.studios', 'uses' => 'AdminController@showStudios']);
     Route::get('categories', ['as' => 'admin.show.categories', 'uses' => 'AdminController@showCategories']);
+
+    Route::group(['prefix', 'user'], function(){
+       Route::get('edit/{user}', ['as' => 'admin.get.user.edit', 'uses' => 'UserController@getEditUser']);
+       Route::post('edit/{user}', ['as' => 'admin.post.user.edit', 'uses' => 'UserController@postEditUser']);
+    });
+
+    Route::group(['prefix' => 'studio'], function(){
+       Route::get('edit/{user}', ['as' => 'admin.get.studio.edit', 'uses' => 'StudioController@getEditStudio']);
+       Route::post('edit/{user}', ['as' => 'admin.post.studio.edit', 'uses' => 'StudioController@postEditStudio']);
+    });
+
+    Route::group(['prefix' => 'category'], function(){
+        Route::get('add', ['as' => 'admin.get.category.add', 'uses' => 'VideoCategoryController@getAddCategory']);
+        Route::post('add', ['as' => 'admin.post.category.add', 'uses' => 'VideoCategoryController@postAddCategory']);
+        Route::get('edit/{category}', ['as' => 'admin.get.category.edit', 'uses' => 'VideoCategoryController@getEditCategory']);
+        Route::post('edit/{category}', ['as' => 'admin.post.category.edit', 'uses' => 'VideoCategoryController@postEditCategory']);
+    });
 });

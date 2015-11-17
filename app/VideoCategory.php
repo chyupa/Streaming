@@ -22,6 +22,13 @@ class VideoCategory extends Model
         return $this->belongsToMany("App\VideoCategory", "related_categories", "_category_id", "_related_category_id");
     }
 
+    public function makeSlugFromName( $category_name )
+    {
+        $slug = str_slug( $category_name );
+        $count = VideoCategory::whereRaw("slug RLIKE '^{$slug}(-[0-9]+)?$'")->count();
+        return $count ? "{$slug}-{$count}" : $slug;
+    }
+
     public function addRelated( $category_id )
     {
         $this->relatedCategories()->attach($category_id);
