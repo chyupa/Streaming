@@ -23,7 +23,7 @@
                         <td>
                             <a href="{{ route('admin.get.category.edit', $category->_id)  }}">Edit</a>
                             <a href="#">Delete</a>
-                            <a href="#">Show Related categories</a>
+                            <a href="{{ route('admin.get.category.related', $category->_id)  }}">Show Related categories</a>
 
                         </td>
                     </tr>

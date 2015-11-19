@@ -55,5 +55,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Dashb
         Route::post('add', ['as' => 'admin.post.category.add', 'uses' => 'VideoCategoryController@postAddCategory']);
         Route::get('edit/{category}', ['as' => 'admin.get.category.edit', 'uses' => 'VideoCategoryController@getEditCategory']);
         Route::post('edit/{category}', ['as' => 'admin.post.category.edit', 'uses' => 'VideoCategoryController@postEditCategory']);
+        Route::get('related/{category}', ['as' => 'admin.get.category.related', 'uses' => 'VideoCategoryController@getRelatedCategories']);
+        Route::post('related/{category}', ['as' => 'admin.post.category.related', 'uses' => 'VideoCategoryController@postRelatedCategories']);
     });
 });

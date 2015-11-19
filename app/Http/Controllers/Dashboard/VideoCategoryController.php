@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Http\Requests\RelatedCategoriesRequest;
 use App\Http\Requests\VideoCategoryRequest;
 use App\VideoCategory;
-use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
 class VideoCategoryController extends Controller
 {
@@ -43,5 +44,23 @@ class VideoCategoryController extends Controller
         $videoCategory->save();
 
         return redirect()->route("admin.show.categories");
+    }
+
+    public function getRelatedCategories( VideoCategory $category )
+    {
+        $categories = VideoCategory::all()->except($category->_id);
+        return view('admin.category.related', compact('category', 'categories'));
+    }
+
+    public function postRelatedCategories( VideoCategory $category, RelatedCategoriesRequest $request )
+    {
+        foreach( $request->get('related') as $categ )
+        {
+            if( $categ == 0 )
+                continue;
+            $category->addRelated( $categ );
+        }
+
+        return redirect()->route('admin.show.categories');
     }
 }
