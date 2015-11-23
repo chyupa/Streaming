@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Requests\StudioRequest;
 use App\StudioMetadata;
+use App\StudioVideo;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -25,7 +26,7 @@ class StudioController extends Controller
     public function postEditStudio( User $user, StudioRequest $request )
     {
         $studioMetadata = $user->studioMetadata;
-//        dd($studioMetadata);
+
         if( $studioMetadata )
         {
             $user->studioMetadata()->update([
@@ -46,5 +47,10 @@ class StudioController extends Controller
         }
 
         return redirect()->route('admin.show.studios');
+    }
+
+    public function getEditStudioVideo(StudioVideo $studioVideo)
+    {
+        return view('admin.studio.video', compact('studioVideo'));
     }
 }
