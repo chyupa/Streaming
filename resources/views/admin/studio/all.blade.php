@@ -19,7 +19,8 @@
             <td>{{$studio->created_at}}</td>
             <td>
               <a href="{{route('admin.get.studio.edit', $studio->_id)}}">Edit</a>
-              <a href="{{ route('admin.post.video.upload', $studio->_id) }}">Show Videos</a>
+              <a href="{{ route('admin.get.studio.videos') }}">All Videos</a>
+              <a href="{{ route('admin.post.video.upload', $studio->_id) }}">Upload a new Video</a>
               <a href="#">Delete</a>
             </td>
           </tr>
