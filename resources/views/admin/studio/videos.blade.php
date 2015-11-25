@@ -9,7 +9,7 @@
       <ul>
         @foreach($videos as $video)
           <li>
-            <a href="{{ route('admin.get.')  }}">{{$video->name}}</a>
+            <a href="{{ route('admin.get.video.edit', [$user->_id, $video->_id])  }}">{{$video->name}}</a>
           </li>
         @endforeach
       </ul>

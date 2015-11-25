@@ -51,7 +51,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Dashb
     Route::get('upload/{user}', ['as' => 'admin.get.video.upload', 'uses' => 'StudioController@getEditStudioVideo']);
     Route::post('upload/{user}', ['as' => 'admin.post.video.upload', 'uses' => 'StudioController@postEditStudioVideo']);
     Route::get('videos/{user}', ['as' => 'admin.get.studio.videos', 'uses' => 'StudioController@getStudioVideos']);
-    Route::get('video/edit/{video}', ['as' => 'admin.get.video.edit', 'uses' => 'VideoController@getEditVideo']);
+    Route::get('{user}/video/edit/{video}', ['as' => 'admin.get.video.edit', 'uses' => 'VideoController@getEditVideo']);
 
   });
 

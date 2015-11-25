@@ -66,9 +66,11 @@ class StudioController extends Controller
 //        'ffmpeg.threads'   => 12,
 //    ]);
     $video_request = $request->video;
-    $move_video = $video_request->move(storage_path("uploads/$user->_id"), $video_request->getClientOriginalName())->getPathname();
+    $move_video = $video_request->move(public_path("uploads/$user->_id"), $video_request->getClientOriginalName())->getPathname();
 
-    $ffprobe = FFProbe::create();
+    $ffprobe = FFProbe::create([
+      "ffprobe.binaries" => '/usr/local/bin/ffprobe'
+    ]);
     $video_duration = $ffprobe->format($move_video)->get('duration');
 //    $video_ffmpeg = $ffmpeg->open($move_video);
 //    $video_timecode_start = TimeCode::fromSeconds(0);
@@ -95,6 +97,7 @@ class StudioController extends Controller
         "name" => $request->get('name'),
         "price" => $request->get('price'),
         "duration" => $video_duration,
+        "file_name" => $video_request->getClientOriginalName(),
         "path" => $move_video,
         "url" => str_slug($request->get('name')),
         "type" => $video_request->guessClientExtension()
@@ -107,7 +110,7 @@ class StudioController extends Controller
   public function getStudioVideos(User $user)
   {
     $videos = $user->studioVideos;
-    return view('admin.studio.videos', compact('videos'));
+    return view('admin.studio.videos', compact('videos', 'user'));
   }
 
 }

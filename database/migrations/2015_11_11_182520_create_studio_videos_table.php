@@ -19,6 +19,7 @@ class CreateStudioVideosTable extends Migration
             $table->float("price");
             $table->string("duration");
             $table->string("path");
+            $table->string("file_name");
             $table->string("url");
             $table->string("type");
             $table->timestamps();

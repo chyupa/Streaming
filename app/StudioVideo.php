@@ -10,7 +10,7 @@ class StudioVideo extends Model
 
   protected $primaryKey = "_id";
 
-  protected $fillable = ["_user_id", "name", "price", "duration", "path", "url", "type"];
+  protected $fillable = ["_user_id", "name", "price", "duration", "file_name", "path", "url", "type"];
 
   public function user()
   {
@@ -22,11 +22,19 @@ class StudioVideo extends Model
     return $this->belongsToMany("App\VideoCategory", "studio_video_categories", "_studio_video_id", "_video_category_id");
   }
 
-  public function getVideoPreviewPath()
+  public function studioVideoGif()
   {
-    $model_id = $this->model->_user_id;
-    return storage_path("uploads/$model_id/preview.mp4");
+    return $this->hasOne("App\StudioVideoGif");
   }
 
+  public function studioVideoImagePreview()
+  {
+    return $this->hasMany("App\StudioVideoImagePreview");
+  }
+
+  public function studioVideoPreview()
+  {
+    return $this->hasOne("App\StudioVideoPreview");
+  }
 
 }

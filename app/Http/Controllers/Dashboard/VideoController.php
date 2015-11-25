@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\StudioVideo;
+use App\User;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -15,8 +16,12 @@ class VideoController extends Controller
     $this->middleware('auth');
   }
 
-  public function getEditVideo(StudioVideo $studioVideo)
+  public function getEditVideo(User $user, StudioVideo $studioVideo)
   {
+//    dd($studioVideo);
+    if( $user->_id != $studioVideo->_user_id )
+      abort(404);
+
     return view('admin.video.edit', compact('studioVideo'));
   }
 }
