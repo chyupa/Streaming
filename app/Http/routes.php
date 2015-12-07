@@ -16,6 +16,8 @@ Route::get('/', function () {
   return view('welcome');
 });
 
+Route::get('/home', ['as' => 'front.get.home', 'uses' => 'FrontController@getHome']);
+
 Route::get('auth', function () {
   return redirect()->route('auth.get.login');
 });
@@ -52,6 +54,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Dashb
     Route::post('upload/{user}', ['as' => 'admin.post.video.upload', 'uses' => 'StudioController@postEditStudioVideo']);
     Route::get('videos/{user}', ['as' => 'admin.get.studio.videos', 'uses' => 'StudioController@getStudioVideos']);
     Route::get('{user}/video/edit/{video}', ['as' => 'admin.get.video.edit', 'uses' => 'VideoController@getEditVideo']);
+
+    Route::post('create-preview/{video}', ['as' => 'admin.post.video.create-preview', 'uses' => 'VideoController@postCreatePreview']);
+    Route::post('create-thumbnails/{video}', ['as' => 'admin.post.video.create-images', 'uses' => 'VideoController@postCreateThumbnails']);
 
   });
 

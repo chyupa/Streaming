@@ -50,3 +50,7 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 .idea/
+public/uploads
+public/assets
+bower_components
+node_modules

@@ -59,12 +59,6 @@ class StudioController extends Controller
 
   public function postEditStudioVideo(User $user, StudioVideoRequest $request)
   {
-//    $ffmpeg = \FFMpeg\FFMpeg::create([
-//        'ffmpeg.binaries'  => '/usr/local/bin/ffmpeg',
-//        'ffprobe.binaries' => '/usr/local/bin/ffprobe',
-//        'timeout'          => 3600, // The timeout for the underlying process
-//        'ffmpeg.threads'   => 12,
-//    ]);
     $video_request = $request->video;
     $move_video = $video_request->move(public_path("uploads/$user->_id"), $video_request->getClientOriginalName())->getPathname();
 
@@ -72,12 +66,6 @@ class StudioController extends Controller
       "ffprobe.binaries" => '/usr/local/bin/ffprobe'
     ]);
     $video_duration = $ffprobe->format($move_video)->get('duration');
-//    $video_ffmpeg = $ffmpeg->open($move_video);
-//    $video_timecode_start = TimeCode::fromSeconds(0);
-//    $video_timecode_end = TimeCode::fromSeconds(30);
-////    dd($video_timecode);
-//    $video_ffmpeg->filters()->clip($video_timecode_start, $video_timecode_end);
-//    $video_ffmpeg->save(new X264("libfdk_aac"), storage_path("uploads/$user->_id/preview.mp4"));
 
 //dd('12');
 //    dd($user->studioVideos);
